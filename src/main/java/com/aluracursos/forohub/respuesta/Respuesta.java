@@ -27,7 +27,7 @@ public class Respuesta {
 
     public Respuesta(DatosRegistroRespuesta datosRegistroRespuesta, Topico topico) {
         this.mensaje = datosRegistroRespuesta.mensaje();
-        this.fechaCreacion = datosRegistroRespuesta.fechaCreacion();
+        this.fechaCreacion = LocalDateTime.now();
         this.autor = datosRegistroRespuesta.autor();
         this.topico = topico;
     }

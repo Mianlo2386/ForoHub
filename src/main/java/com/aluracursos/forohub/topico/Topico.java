@@ -25,7 +25,7 @@ public class Topico {
     private String titulo;
     private String mensaje;
     @Column(name = "fecha_creacion")
-    private LocalDateTime fechaCreacion = LocalDateTime.now();
+    private LocalDateTime fechaCreacion;
     @Enumerated(EnumType.STRING)
     private Status status;
     private String autor;
@@ -36,7 +36,7 @@ public class Topico {
     public Topico(DatosRegistroTopico datosRegistroTopico) {
         this.titulo = datosRegistroTopico.titulo();
         this.mensaje = datosRegistroTopico.mensaje();
-        this.fechaCreacion = datosRegistroTopico.fechaCreacion();
+        this.fechaCreacion = LocalDateTime.now();
         this.status = datosRegistroTopico.status();
         this.autor = datosRegistroTopico.autor();
         this.curso = datosRegistroTopico.curso();
