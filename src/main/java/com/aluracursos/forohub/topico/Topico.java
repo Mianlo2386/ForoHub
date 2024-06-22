@@ -1,6 +1,7 @@
 package com.aluracursos.forohub.topico;
 
 import com.aluracursos.forohub.respuesta.Respuesta;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Data
+@JsonIgnoreProperties({"respuestas"})
 public class Topico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
