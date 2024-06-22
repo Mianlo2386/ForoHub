@@ -1,10 +1,15 @@
 package com.aluracursos.forohub.respuesta;
 
+import jakarta.validation.constraints.NotBlank;
+
+import java.time.LocalDateTime;
+
 public record DatosRegistroRespuesta(
+        @NotBlank
         String mensaje,
-        String topico,
-        String fechaCreacion,
-        String autor,
-        String solucion
+        @NotBlank
+        LocalDateTime fechaCreacion,
+        @NotBlank
+        String autor
 ) {
 }
