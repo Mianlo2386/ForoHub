@@ -1,10 +1,14 @@
 package com.aluracursos.forohub.controller;
 
+import com.aluracursos.forohub.topico.DatosListadoTopicos;
 import com.aluracursos.forohub.topico.DatosRegistroTopico;
 import com.aluracursos.forohub.topico.Topico;
 import com.aluracursos.forohub.topico.TopicoRepository;
+import com.aluracursos.forohub.usuario.DatosListadoUsuarios;
 import com.aluracursos.forohub.usuario.Usuario;
 import com.aluracursos.forohub.usuario.UsuarioRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,6 +36,10 @@ public class TopicoController {
         Topico topico = new Topico(datosRegistroTopico, usuario);
         Topico topicoGuardado = topicoRepository.save(topico);
         return ResponseEntity.ok(topicoGuardado);
+    }
+    @GetMapping
+    public Page<DatosListadoTopicos> listadoTopicos(Pageable paginacion){
+        return topicoRepository.findAll(paginacion).map(DatosListadoTopicos::new);
     }
 
 

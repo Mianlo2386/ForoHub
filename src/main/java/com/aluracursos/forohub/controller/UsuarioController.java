@@ -1,9 +1,8 @@
 package com.aluracursos.forohub.controller;
 
-import com.aluracursos.forohub.usuario.DatosRegistroUsuario;
-import com.aluracursos.forohub.usuario.Usuario;
-import com.aluracursos.forohub.usuario.UsuarioDTO;
-import com.aluracursos.forohub.usuario.UsuarioRepository;
+import com.aluracursos.forohub.usuario.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +45,10 @@ public class UsuarioController {
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
         usuarioRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping
+    public Page<DatosListadoUsuarios> listadoUsuarios(Pageable paginacion){
+        return usuarioRepository.findAll(paginacion).map(DatosListadoUsuarios::new);
     }
 }
 
