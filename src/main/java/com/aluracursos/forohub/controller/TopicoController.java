@@ -9,6 +9,7 @@ import com.aluracursos.forohub.usuario.Usuario;
 import com.aluracursos.forohub.usuario.UsuarioRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,7 +39,7 @@ public class TopicoController {
         return ResponseEntity.ok(topicoGuardado);
     }
     @GetMapping
-    public Page<DatosListadoTopicos> listadoTopicos(Pageable paginacion){
+    public Page<DatosListadoTopicos> listadoTopicos(@PageableDefault(size=10) Pageable paginacion){
         return topicoRepository.findAll(paginacion).map(DatosListadoTopicos::new);
     }
 
