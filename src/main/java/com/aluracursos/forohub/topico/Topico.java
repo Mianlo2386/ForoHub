@@ -1,6 +1,7 @@
 package com.aluracursos.forohub.topico;
 
 import com.aluracursos.forohub.respuesta.Respuesta;
+import com.aluracursos.forohub.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,11 +25,12 @@ public class Topico {
     private Long id;
     private String titulo;
     private String mensaje;
-    @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacion;
     @Enumerated(EnumType.STRING)
     private Status status;
-    private String autor;
+    @ManyToOne
+    @JoinColumn(name = "autor_id")
+    private Usuario autor;
     private String curso;
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL)
     private List<Respuesta> respuestas;
@@ -38,7 +40,7 @@ public class Topico {
         this.mensaje = datosRegistroTopico.mensaje();
         this.fechaCreacion = LocalDateTime.now();
         this.status = datosRegistroTopico.status();
-        this.autor = datosRegistroTopico.autor();
+        this.autor = autor;
         this.curso = datosRegistroTopico.curso();
         this.respuestas = datosRegistroTopico.respuestas() != null
                 ? datosRegistroTopico.respuestas().stream()

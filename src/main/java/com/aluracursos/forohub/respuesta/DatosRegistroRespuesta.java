@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 public record DatosRegistroRespuesta(
         @NotBlank
         String mensaje,
-//        @NotNull
-//        LocalDateTime fechaCreacion,
         @NotBlank
         String autor
 ) {
