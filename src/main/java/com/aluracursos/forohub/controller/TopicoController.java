@@ -3,33 +3,39 @@ package com.aluracursos.forohub.controller;
 import com.aluracursos.forohub.topico.DatosRegistroTopico;
 import com.aluracursos.forohub.topico.Topico;
 import com.aluracursos.forohub.topico.TopicoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.aluracursos.forohub.usuario.Usuario;
+import com.aluracursos.forohub.usuario.UsuarioRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
+//import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
 @RequestMapping("/topicos")
 public class TopicoController {
-    @Autowired
-    private TopicoRepository topicoRepository;
+    private final TopicoRepository topicoRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    public TopicoController(TopicoRepository topicoRepository, UsuarioRepository usuarioRepository) {
+        this.topicoRepository = topicoRepository;
+        this.usuarioRepository = usuarioRepository;
+    }
+
+
 
     @PostMapping
     public ResponseEntity<Topico> crearTopico(@RequestBody DatosRegistroTopico datosRegistroTopico) {
-        Topico topico = new Topico(datosRegistroTopico);
-        topicoRepository.save(topico);
-        return ResponseEntity.ok(topico);
+        Usuario usuario = usuarioRepository.findById(datosRegistroTopico.autorId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+        Topico topico = new Topico(datosRegistroTopico, usuario);
+        Topico topicoGuardado = topicoRepository.save(topico);
+        return ResponseEntity.ok(topicoGuardado);
     }
+
+
 }
-
-
 
 
 

@@ -3,6 +3,5 @@ CREATE TABLE usuarios (
   nombre VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   contrasena VARCHAR(100) NOT NULL,
-  perfiles VARCHAR(50) NOT NULL
+  perfiles TEXT NOT NULL
 );
-

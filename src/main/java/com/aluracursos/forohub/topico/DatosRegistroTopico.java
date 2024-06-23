@@ -12,6 +12,7 @@ public record DatosRegistroTopico(
         @NotBlank
         String mensaje,
         Status status,
+        Long autorId,
         @NotBlank
         String autor,
         @NotBlank

@@ -35,12 +35,12 @@ public class Topico {
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL)
     private List<Respuesta> respuestas;
 
-    public Topico(DatosRegistroTopico datosRegistroTopico) {
+    public Topico(DatosRegistroTopico datosRegistroTopico, Usuario autor) {
         this.titulo = datosRegistroTopico.titulo();
         this.mensaje = datosRegistroTopico.mensaje();
         this.fechaCreacion = LocalDateTime.now();
         this.status = datosRegistroTopico.status();
-        this.autor = autor;
+        this.autor = autor != null ? autor : new Usuario();
         this.curso = datosRegistroTopico.curso();
         this.respuestas = datosRegistroTopico.respuestas() != null
                 ? datosRegistroTopico.respuestas().stream()

@@ -34,6 +34,6 @@ public class Respuesta {
         this.fechaCreacion = LocalDateTime.now();
         this.autor = datosRegistroRespuesta.autor();
         this.topico = topico;
-        this.autorTopico = autorTopico;
+        this.autorTopico = topico.getAutor();
     }
 }

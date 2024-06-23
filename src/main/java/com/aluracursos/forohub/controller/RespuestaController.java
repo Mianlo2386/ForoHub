@@ -34,5 +34,5 @@ public class RespuestaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(respuestaGuardada);
     }
 
-    // Agrega otros métodos CRUD para las respuestas
+
 }
