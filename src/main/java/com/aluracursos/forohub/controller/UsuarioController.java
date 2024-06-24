@@ -4,6 +4,7 @@ import com.aluracursos.forohub.topico.DatosActualizarTopico;
 import com.aluracursos.forohub.topico.Topico;
 import com.aluracursos.forohub.usuario.*;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +30,11 @@ public class UsuarioController {
         this.usuarioRepository = usuarioRepository;
     }
 
+//    @Autowired
+//    private UriComponentsBuilder uriComponentsBuilder;
+
+
+
     @PostMapping
     public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody DatosRegistroUsuario datosRegistroUsuario) {
         List<String> perfiles = datosRegistroUsuario.perfiles() != null ? datosRegistroUsuario.perfiles() : new ArrayList<>();
@@ -35,9 +44,19 @@ public class UsuarioController {
                 datosRegistroUsuario.contrasena(),
                 perfiles
         );
+
         Usuario usuarioGuardado = usuarioRepository.save(usuario);
-        return ResponseEntity.ok(new UsuarioDTO(usuarioGuardado));
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(usuarioGuardado.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(new UsuarioDTO(usuarioGuardado));
     }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO> obtenerUsuarioPorId(@PathVariable Long id) {
         Usuario usuario = usuarioRepository.findById(id)
@@ -67,4 +86,6 @@ public class UsuarioController {
 
 
 }
-
+//
+//URI url = uriComponentsBuilder.path("usuario/{id}").buildAndExpand.(usuario.getId().toUri());
+//UriComponentsBuilder uriComponentsBuilder
