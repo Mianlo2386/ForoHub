@@ -77,11 +77,12 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     @Transactional
-    public void actualizarUsuario(@PathVariable Long id, @RequestBody @Valid DatosActualizarUsuario datosActualizarUsuario) {
+    public ResponseEntity actualizarUsuario(@PathVariable Long id, @RequestBody @Valid DatosActualizarUsuario datosActualizarUsuario) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
         usuario.actualizarDatos(datosActualizarUsuario);
         usuarioRepository.save(usuario);
+        return ResponseEntity.ok(usuario);
     }
 
 

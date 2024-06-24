@@ -52,8 +52,8 @@ public class TopicoController {
         return ResponseEntity.created(location).body(new DatosRespuestaTopico(topicoGuardado));
     }
     @GetMapping
-    public Page<DatosListadoTopicos> listadoTopicos(@PageableDefault(size=10,sort="titulo") Pageable paginacion){
-        return topicoRepository.findAll(paginacion).map(DatosListadoTopicos::new);
+    public ResponseEntity<Page<DatosListadoTopicos>> listadoTopicos(@PageableDefault(size=10,sort="titulo") Pageable paginacion){
+        return ResponseEntity.ok(topicoRepository.findAll(paginacion).map(DatosListadoTopicos::new)) ;
     }
 
     @GetMapping("/{id}")
