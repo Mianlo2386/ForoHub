@@ -15,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 
 @RestController
@@ -29,12 +32,24 @@ public class TopicoController {
     }
 
     @PostMapping
-    public ResponseEntity<Topico> crearTopico(@RequestBody DatosRegistroTopico datosRegistroTopico) {
+    public ResponseEntity<DatosRespuestaTopico> crearTopico(@Valid @RequestBody DatosRegistroTopico datosRegistroTopico) {
         Usuario usuario = usuarioRepository.findById(datosRegistroTopico.autorId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+        if (topicoRepository.existsByTituloAndMensaje(datosRegistroTopico.titulo(), datosRegistroTopico.mensaje())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe un tópico con el mismo título y mensaje");
+        }
+
         Topico topico = new Topico(datosRegistroTopico, usuario);
         Topico topicoGuardado = topicoRepository.save(topico);
-        return ResponseEntity.ok(topicoGuardado);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(topicoGuardado.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(new DatosRespuestaTopico(topicoGuardado));
     }
     @GetMapping
     public Page<DatosListadoTopicos> listadoTopicos(@PageableDefault(size=10,sort="titulo") Pageable paginacion){
