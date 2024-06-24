@@ -48,4 +48,13 @@ public class Topico {
                 .collect(Collectors.toList())
                 : new ArrayList<>();
     }
+
+    public void actualizarDatos(DatosActualizarTopico datosActualizarTopico) {
+        this.titulo = datosActualizarTopico.titulo();
+        this.mensaje = datosActualizarTopico.mensaje();
+        this.fechaCreacion = LocalDateTime.now();
+        this.status = datosActualizarTopico.status();
+        this.autor = autor != null ? autor : new Usuario();
+        this.curso = datosActualizarTopico.curso();
+    }
 }
