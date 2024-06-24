@@ -5,6 +5,7 @@ import com.aluracursos.forohub.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class Topico {
     private String curso;
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL)
     private List<Respuesta> respuestas;
+//    @Autowired
+//    private TopicoRepository topicoRepository;
 
     public Topico(DatosRegistroTopico datosRegistroTopico, Usuario autor) {
         this.titulo = datosRegistroTopico.titulo();
@@ -49,7 +52,9 @@ public class Topico {
                 : new ArrayList<>();
     }
 
-    public void actualizarDatos(DatosActualizarTopico datosActualizarTopico) {
+    public void actualizarDatos(DatosActualizarTopico datosActualizarTopico, TopicoRepository topicoRepository) {
+        Topico topico = topicoRepository.findById(this.id)
+                .orElseThrow(() -> new IllegalArgumentException("Tópico no encontrado"));
         this.titulo = datosActualizarTopico.titulo() != null
                 ? datosActualizarTopico.titulo() : this.titulo;
         this.mensaje = datosActualizarTopico.mensaje() != null

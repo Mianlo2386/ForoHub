@@ -1,10 +1,14 @@
 package com.aluracursos.forohub.controller;
 
+import com.aluracursos.forohub.topico.DatosActualizarTopico;
+import com.aluracursos.forohub.topico.Topico;
 import com.aluracursos.forohub.usuario.*;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -50,5 +54,17 @@ public class UsuarioController {
     public Page<DatosListadoUsuarios> listadoUsuarios(Pageable paginacion){
         return usuarioRepository.findAll(paginacion).map(DatosListadoUsuarios::new);
     }
+
+
+    @PutMapping("/{id}")
+    @Transactional
+    public void actualizarUsuario(@PathVariable Long id, @RequestBody @Valid DatosActualizarUsuario datosActualizarUsuario) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+        usuario.actualizarDatos(datosActualizarUsuario);
+        usuarioRepository.save(usuario);
+    }
+
+
 }
 

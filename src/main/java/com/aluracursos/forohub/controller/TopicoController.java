@@ -47,11 +47,20 @@ public class TopicoController {
                 .orElseThrow(() -> new TopicoNotFoundException("Tópico no encontrado"));
         return ResponseEntity.ok(topico);
     }
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    public void actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico){
-        Topico topico = topicoRepository.getReferenceById(datosActualizarTopico.id());
-        topico.actualizarDatos(datosActualizarTopico);
+    public void actualizarTopico(@PathVariable Long id,@RequestBody @Valid DatosActualizarTopico datosActualizarTopico){
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tópico no encontrado"));
+        topico.actualizarDatos(datosActualizarTopico, topicoRepository);
+        topicoRepository.save(topico);
+    }
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void eliminarTopico(@PathVariable Long id){
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tópico no encontrado"));
+        topicoRepository.delete(topico);
     }
 
 

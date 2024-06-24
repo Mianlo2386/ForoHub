@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -44,6 +46,11 @@ public class Usuario {
         return String.join(",", perfiles);
     }
 
+    public void actualizarDatos(DatosActualizarUsuario datosActualizarUsuario) {
+        this.nombre = datosActualizarUsuario.nombre() != null
+                ? datosActualizarUsuario.nombre() : this.nombre;
+
+    }
 }
 
 
