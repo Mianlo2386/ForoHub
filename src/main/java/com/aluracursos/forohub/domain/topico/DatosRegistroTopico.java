@@ -1,9 +1,8 @@
-package com.aluracursos.forohub.topico;
+package com.aluracursos.forohub.domain.topico;
 
-import com.aluracursos.forohub.respuesta.DatosRegistroRespuesta;
+import com.aluracursos.forohub.domain.respuesta.DatosRegistroRespuesta;
 import jakarta.validation.constraints.NotBlank;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public record DatosRegistroTopico(

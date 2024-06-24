@@ -1,10 +1,9 @@
 
 
-package com.aluracursos.forohub.usuario;
+package com.aluracursos.forohub.domain.usuario;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public record UsuarioDTO(
         Long id,

@@ -1,10 +1,8 @@
 package com.aluracursos.forohub.controller;
 
-import com.aluracursos.forohub.infra.TopicoNotFoundException;
-import com.aluracursos.forohub.topico.*;
-import com.aluracursos.forohub.usuario.DatosListadoUsuarios;
-import com.aluracursos.forohub.usuario.Usuario;
-import com.aluracursos.forohub.usuario.UsuarioRepository;
+import com.aluracursos.forohub.domain.topico.*;
+import com.aluracursos.forohub.domain.usuario.Usuario;
+import com.aluracursos.forohub.domain.usuario.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,24 +54,28 @@ public class TopicoController {
         return ResponseEntity.ok(topicoRepository.findAll(paginacion).map(DatosListadoTopicos::new)) ;
     }
 
+
+
     @GetMapping("/{id}")
     public ResponseEntity<Topico> detalleTopico(@PathVariable Long id) {
         Topico topico = topicoRepository.findById(id)
-                .orElseThrow(() -> new TopicoNotFoundException("Tópico no encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tópico no encontrado"));
         return ResponseEntity.ok(topico);
     }
+
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity actualizarTopico(@PathVariable Long id,@RequestBody @Valid DatosActualizarTopico datosActualizarTopico){
+    public ResponseEntity actualizarTopico(@PathVariable Long id, @RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
         Topico topico = topicoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tópico no encontrado"));
         topico.actualizarDatos(datosActualizarTopico, topicoRepository);
         topicoRepository.save(topico);
         return ResponseEntity.ok(topico);
     }
+
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity eliminarTopico(@PathVariable Long id){
+    public ResponseEntity eliminarTopico(@PathVariable Long id) {
         Topico topico = topicoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tópico no encontrado"));
         topicoRepository.delete(topico);

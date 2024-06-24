@@ -1,18 +1,14 @@
-package com.aluracursos.forohub.usuario;
+package com.aluracursos.forohub.domain.usuario;
 
-import com.aluracursos.forohub.topico.Topico;
+import com.aluracursos.forohub.domain.topico.Topico;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
-
 
 
 @Entity(name = "usuario")

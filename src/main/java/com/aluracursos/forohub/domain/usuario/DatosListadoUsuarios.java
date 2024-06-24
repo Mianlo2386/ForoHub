@@ -1,4 +1,4 @@
-package com.aluracursos.forohub.usuario;
+package com.aluracursos.forohub.domain.usuario;
 
 public record DatosListadoUsuarios(
 

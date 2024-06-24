@@ -1,11 +1,10 @@
-package com.aluracursos.forohub.topico;
+package com.aluracursos.forohub.domain.topico;
 
-import com.aluracursos.forohub.respuesta.Respuesta;
-import com.aluracursos.forohub.usuario.Usuario;
+import com.aluracursos.forohub.domain.respuesta.Respuesta;
+import com.aluracursos.forohub.domain.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

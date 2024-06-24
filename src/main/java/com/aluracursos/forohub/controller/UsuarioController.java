@@ -1,10 +1,8 @@
 package com.aluracursos.forohub.controller;
 
-import com.aluracursos.forohub.topico.DatosActualizarTopico;
-import com.aluracursos.forohub.topico.Topico;
-import com.aluracursos.forohub.usuario.*;
+import com.aluracursos.forohub.domain.usuario.*;
+import com.aluracursos.forohub.domain.usuario.*;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -13,12 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -84,9 +80,4 @@ public class UsuarioController {
         usuarioRepository.save(usuario);
         return ResponseEntity.ok(usuario);
     }
-
-
 }
-//
-//URI url = uriComponentsBuilder.path("usuario/{id}").buildAndExpand.(usuario.getId().toUri());
-//UriComponentsBuilder uriComponentsBuilder

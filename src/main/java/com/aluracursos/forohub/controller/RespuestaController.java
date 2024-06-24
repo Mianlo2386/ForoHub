@@ -1,10 +1,10 @@
 package com.aluracursos.forohub.controller;
 
-import com.aluracursos.forohub.respuesta.DatosRegistroRespuesta;
-import com.aluracursos.forohub.respuesta.Respuesta;
-import com.aluracursos.forohub.respuesta.RespuestaRepository;
-import com.aluracursos.forohub.topico.Topico;
-import com.aluracursos.forohub.topico.TopicoRepository;
+import com.aluracursos.forohub.domain.respuesta.DatosRegistroRespuesta;
+import com.aluracursos.forohub.domain.respuesta.Respuesta;
+import com.aluracursos.forohub.domain.respuesta.RespuestaRepository;
+import com.aluracursos.forohub.domain.topico.Topico;
+import com.aluracursos.forohub.domain.topico.TopicoRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package com.aluracursos.forohub.topico;
+package com.aluracursos.forohub.domain.topico;
 
-import com.aluracursos.forohub.usuario.Usuario;
+import com.aluracursos.forohub.domain.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
