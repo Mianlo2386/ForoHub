@@ -70,8 +70,8 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping
-    public Page<DatosListadoUsuarios> listadoUsuarios(Pageable paginacion){
-        return usuarioRepository.findAll(paginacion).map(DatosListadoUsuarios::new);
+    public ResponseEntity<Page<DatosListadoUsuarios>> listadoUsuarios(Pageable paginacion){
+        return ResponseEntity.ok(usuarioRepository.findAll(paginacion).map(DatosListadoUsuarios::new));
     }
 
 
