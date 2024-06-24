@@ -50,11 +50,14 @@ public class Topico {
     }
 
     public void actualizarDatos(DatosActualizarTopico datosActualizarTopico) {
-        this.titulo = datosActualizarTopico.titulo();
-        this.mensaje = datosActualizarTopico.mensaje();
+        this.titulo = datosActualizarTopico.titulo() != null
+                ? datosActualizarTopico.titulo() : this.titulo;
+        this.mensaje = datosActualizarTopico.mensaje() != null
+                ? datosActualizarTopico.mensaje() : this.mensaje;
         this.fechaCreacion = LocalDateTime.now();
-        this.status = datosActualizarTopico.status();
-        this.autor = autor != null ? autor : new Usuario();
-        this.curso = datosActualizarTopico.curso();
+        this.status = datosActualizarTopico.status() != null
+                ? datosActualizarTopico.status() : this.status;
+        this.curso = datosActualizarTopico.curso() != null
+                ? datosActualizarTopico.curso() : this.curso;
     }
 }
