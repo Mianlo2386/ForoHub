@@ -49,18 +49,20 @@ public class TopicoController {
     }
     @PutMapping("/{id}")
     @Transactional
-    public void actualizarTopico(@PathVariable Long id,@RequestBody @Valid DatosActualizarTopico datosActualizarTopico){
+    public ResponseEntity actualizarTopico(@PathVariable Long id,@RequestBody @Valid DatosActualizarTopico datosActualizarTopico){
         Topico topico = topicoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tópico no encontrado"));
         topico.actualizarDatos(datosActualizarTopico, topicoRepository);
         topicoRepository.save(topico);
+        return ResponseEntity.ok(topico);
     }
     @DeleteMapping("/{id}")
     @Transactional
-    public void eliminarTopico(@PathVariable Long id){
+    public ResponseEntity eliminarTopico(@PathVariable Long id){
         Topico topico = topicoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tópico no encontrado"));
         topicoRepository.delete(topico);
+        return ResponseEntity.noContent().build();
     }
 
 
