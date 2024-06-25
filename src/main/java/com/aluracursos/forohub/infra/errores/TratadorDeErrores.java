@@ -1,6 +1,6 @@
 
 
-package com.aluracursos.forohub.infra;
+package com.aluracursos.forohub.infra.errores;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
