@@ -26,13 +26,8 @@ public class UsuarioController {
         this.usuarioRepository = usuarioRepository;
     }
 
-//    @Autowired
-//    private UriComponentsBuilder uriComponentsBuilder;
-
-
-
     @PostMapping
-    public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody DatosRegistroUsuario datosRegistroUsuario) {
+    public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody @Valid DatosRegistroUsuario datosRegistroUsuario) {
         List<String> perfiles = datosRegistroUsuario.perfiles() != null ? datosRegistroUsuario.perfiles() : new ArrayList<>();
         Usuario usuario = new Usuario(
                 datosRegistroUsuario.nombre(),

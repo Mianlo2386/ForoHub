@@ -34,22 +34,6 @@ public class TratadorDeErrores {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ErrorResponse> tratarErrorGenerico(ResponseStatusException e) {
         HttpStatus status = HttpStatus.valueOf(e.getStatusCode().value());
@@ -57,11 +41,6 @@ public class TratadorDeErrores {
         ErrorResponse errorResponse = new ErrorResponse(status.value(), message);
         return ResponseEntity.status(status).body(errorResponse);
     }
-
-
-
-
-
 
 
     private static class ErrorResponse {
@@ -81,12 +60,6 @@ public class TratadorDeErrores {
             return message;
         }
     }
-
-
-
-
-
-
 
 
     private record DatosErrorValidacion(String campo, String error) {
