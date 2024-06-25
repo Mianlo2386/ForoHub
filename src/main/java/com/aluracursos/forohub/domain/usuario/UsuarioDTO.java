@@ -8,18 +8,11 @@ import java.util.List;
 public record UsuarioDTO(
         Long id,
         String nombre,
-        String email,
-        List<String> perfiles
+        String email
 ) {
     public UsuarioDTO(Usuario usuario) {
-        this(usuario.getId(), usuario.getNombre(), usuario.getEmail(), convertPerfilesToList(usuario.getPerfiles()));
+        this(usuario.getId(), usuario.getNombre(), usuario.getEmail());
     }
 
-    private static List<String> convertPerfilesToList(String perfilesString) {
-        if (perfilesString == null || perfilesString.isEmpty()) {
-            return List.of();
-        }
-        return Arrays.asList(perfilesString.split(","));
-    }
 }
 

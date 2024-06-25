@@ -26,20 +26,15 @@ public class Usuario {
     private String email;
     private String contrasena;
 
-    @Column(columnDefinition = "TEXT")
-    private String perfiles;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
     private List<Topico> topicos;
 
-    public Usuario(String nombre, String email, String contrasena, List<String> perfiles) {
+    public Usuario(String nombre, String email, String contrasena) {
         this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
-        this.perfiles = convertPerfilesToString(perfiles);
-    }
-    private String convertPerfilesToString(List<String> perfiles) {
-        return String.join(",", perfiles);
+
     }
 
     public void actualizarDatos(DatosActualizarUsuario datosActualizarUsuario) {

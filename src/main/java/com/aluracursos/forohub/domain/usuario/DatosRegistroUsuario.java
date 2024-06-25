@@ -16,9 +16,7 @@ public record DatosRegistroUsuario(
         @Email
         String email,
         @NotBlank
-        String contrasena,
-        @NotNull
-        List<String> perfiles
+        String contrasena
 ) {
 }
 

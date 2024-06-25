@@ -27,15 +27,12 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody @Valid DatosRegistroUsuario datosRegistroUsuario) {
-        List<String> perfiles = datosRegistroUsuario.perfiles() != null ? datosRegistroUsuario.perfiles() : new ArrayList<>();
+    public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody @Valid DatosRegistroUsuario datosRegistroUsuario) {;
         Usuario usuario = new Usuario(
                 datosRegistroUsuario.nombre(),
                 datosRegistroUsuario.email(),
-                datosRegistroUsuario.contrasena(),
-                perfiles
+                datosRegistroUsuario.contrasena()
         );
-
         Usuario usuarioGuardado = usuarioRepository.save(usuario);
 
         URI location = ServletUriComponentsBuilder
