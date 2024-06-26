@@ -33,6 +33,9 @@ public class TokenService {
         }
     }
     public String getSubject(String token){
+        if (token == null){
+            throw new RuntimeException("El token no puede ser nulo.");
+        }
         DecodedJWT verifier = null;
         try {
             Algorithm algorithm = Algorithm.HMAC256(forohubSecret);//Validando firma
