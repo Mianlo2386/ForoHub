@@ -1,6 +1,9 @@
 package com.aluracursos.forohub.controller;
 
 import com.aluracursos.forohub.domain.usuario.DatosAutenticarUsuario;
+import com.aluracursos.forohub.domain.usuario.Usuario;
+import com.aluracursos.forohub.infra.security.DatosJWTToken;
+import com.aluracursos.forohub.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AutenticacionController {
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenService tokenService;
     @PostMapping
     public ResponseEntity autenticarUsuario(@RequestBody @Valid DatosAutenticarUsuario datosAutenticarUsuario){
-        Authentication token = new UsernamePasswordAuthenticationToken(datosAutenticarUsuario.email(),
+        Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticarUsuario.email(),
                 datosAutenticarUsuario.contrasena());
-        authenticationManager.authenticate(token);
-        return ResponseEntity.ok().build();
+        var usuarioAutenticado = authenticationManager.authenticate(authToken);
+        var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
+        return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
     }
 }
