@@ -13,6 +13,15 @@ Funcionalidades
     Mostrar un tópico específico
     Actualizar un tópico existente
     Eliminar un tópico de la base de datos
+    Crear usuarios
+    Mostrar usuarios
+    Mostrar detalle de usuario específico
+    Actualizar usuarios
+    Eliminar usuarios
+    Responder tópicos
+    Mostrar respuestas
+    Autorizar usuarios
+    Autenticar usuarios
 
 <h3>Tecnologias utilizadas</h3>
 
